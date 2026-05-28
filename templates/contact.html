@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Bharath R</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07070f;
+      --bg2: #0e0e1c;
+      --bg3: #13131f;
+      --surface: #1a1a2e;
+      --border: rgba(255,255,255,0.07);
+      --accent: #f0a500;
+      --accent2: #ff6b6b;
+      --text: #f0eeff;
+      --muted: #8887a8;
+      --subtle: #3a3a5c;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(7,7,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+    /* MAIN LAYOUT */
+    .main {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      background: var(--bg2);
+      padding: 5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      position: sticky;
+      top: 72px;
+      height: calc(100vh - 72px);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .left-panel h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+
+    .left-panel > p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 380px;
+      line-height: 1.9;
+      margin-bottom: 3rem;
+    }
+
+    .contact-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: rgba(240,165,0,0.08);
+      border: 1px solid rgba(240,165,0,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .contact-item-body { }
+
+    .contact-item-body .label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-item-body a, .contact-item-body span {
+      color: var(--text);
+      font-size: 0.9rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .contact-item-body a:hover { color: var(--accent); }
+
+    .left-availability {
+      margin-top: 3rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: rgba(240,165,0,0.06);
+      border: 1px solid rgba(240,165,0,0.2);
+      border-radius: 8px;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .avail-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: ping 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes ping {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+      50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    }
+
+    /* RIGHT PANEL — FORM */
+    .right-panel {
+      padding: 5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--bg);
+    }
+
+    .form-container { max-width: 500px; }
+
+    .form-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .form-header h2 {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    /* FORM FIELDS */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group label .req { color: var(--accent); margin-left: 2px; }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s;
+      resize: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--subtle);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(240,165,0,0.5);
+      background: var(--bg3);
+    }
+
+    .form-group textarea { min-height: 130px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* SUBMIT */
+    .form-submit {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #07070f;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      font-family: var(--font-body);
+      letter-spacing: 0.02em;
+      transition: all 0.25s;
+    }
+
+    .btn-submit:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-submit .arrow { transition: transform 0.25s; }
+    .btn-submit:hover .arrow { transform: translateX(4px); }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--subtle);
+      font-family: var(--font-mono);
+    }
+
+    /* SUCCESS STATE */
+    .success-msg {
+      display: none;
+      background: rgba(74,222,128,0.06);
+      border: 1px solid rgba(74,222,128,0.2);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+      color: #4ade80;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .success-msg.show { display: flex; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--subtle);
+      font-family: var(--font-mono);
+    }
+
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; }
+      .left-panel { position: static; height: auto; padding: 5rem 1.5rem 3rem; }
+      .right-panel { padding: 3rem 1.5rem 5rem; }
+      nav { padding: 1rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">HOME<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/project">Projects</a></li>
+      <li><a href="/contact" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+
+    <!-- LEFT: INFO -->
+    <div class="left-panel">
+      <p class="section-label reveal">// get in touch</p>
+      <h1 class="reveal">Let's build<br/>something<br/>together.</h1>
+      <p class="reveal">Open to internship opportunities, freelance projects, and full-time roles. Drop me a message and I'll respond within 24 hours.</p>
+
+      <div class="contact-list">
+        <div class="contact-item reveal">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-body">
+            <p class="label">Email</p>
+            <a href="mailto:bharathr1130@gmail.com">bharathr1130@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">📱</div>
+          <div class="contact-item-body">
+            <p class="label">Phone</p>
+            <span>+91 6374985844</span>
+          </div>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">💼</div>
+          <div class="contact-item-body">
+            <p class="label">LinkedIn</p>
+            <a href="https://www.linkedin.com/in/bharathr-developer/" target="_blank">linkedin.com/in/bharath-developer/</a>
+          </div>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">🐙</div>
+          <div class="contact-item-body">
+            <p class="label">GitHub</p>
+            <a href="https://github.com/bharath123-R" target="_blank">github.com/bharath123-R</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="left-availability reveal">
+        <div class="avail-dot"></div>
+        <span>Available for new opportunities · 2026</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="right-panel">
+      <div class="form-container">
+        <div class="form-header reveal">
+          <h2>Send a Message</h2>
+          <p>Fill out the form below and I'll get back to you shortly.</p>
+        </div>
+
+        <!-- Flask POST form -->
+        <form action="/contact" method="POST" id="contactForm">
+
+          <div class="form-row">
+            <div class="form-group reveal">
+              <label>Name <span class="req">*</span></label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your full name"
+                required
+                autocomplete="name"
+              />
+            </div>
+            <div class="form-group reveal">
+              <label>Email <span class="req">*</span></label>
+              <input
+                type="email"
+                name="email"
+                placeholder="your@email.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <div class="form-group reveal">
+            <label>Subject</label>
+            <input
+              type="text"
+              name="subject"
+              placeholder="What's this about?"
+            />
+          </div>
+
+          <div class="form-group reveal">
+            <label>Message <span class="req">*</span></label>
+            <textarea
+              name="message"
+              placeholder="Tell me about your project, opportunity, or question..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-submit reveal">
+            <button type="submit" class="btn-submit">
+              Send Message <span class="arrow">→</span>
+            </button>
+            <span class="form-note">I reply within 24h</span>
+          </div>
+
+          <div class="success-msg" id="successMsg">
+            <span>✓</span>
+            <span>Message sent! I'll get back to you soon.</span>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Designed &amp; built by <a href="/">Bharath R</a> · <a href="mailto:bharathr1130@gmail.com">bharathr1130@gmail.com</a></p>
+  </footer>
+
+  <script>
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Flash success message if redirected back with ?sent=1
+    if (window.location.search.includes('sent=1')) {
+      document.getElementById('successMsg').classList.add('show');
+      window.history.replaceState({}, document.title, '/contact');
+    }
+
+    // Optional: client-side UX enhancement — show success before redirect
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      const btn = this.querySelector('.btn-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+    });
+  </script>
+</body>
+</html>

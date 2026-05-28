@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Bharath R</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07070f;
+      --bg2: #0e0e1c;
+      --bg3: #13131f;
+      --surface: #1a1a2e;
+      --border: rgba(255,255,255,0.07);
+      --accent: #f0a500;
+      --accent2: #ff6b6b;
+      --text: #f0eeff;
+      --muted: #8887a8;
+      --subtle: #3a3a5c;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(7,7,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 9rem 4rem 4rem;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: 'PROJECTS';
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 14vw;
+      color: rgba(240,165,0,0.03);
+      white-space: nowrap;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .page-header-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+    }
+
+    /* PROJECTS */
+    .projects-section { padding: 2rem 4rem 6rem; }
+
+    .projects-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* FEATURED PROJECT */
+    .project-featured {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      background: var(--bg2);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .project-featured:hover {
+      border-color: rgba(240,165,0,0.3);
+      transform: translateY(-4px);
+    }
+
+    .project-visual {
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid var(--border);
+    }
+
+    .project-visual .code-art {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.8;
+      padding: 2rem;
+      opacity: 0.6;
+    }
+
+    .project-visual .code-art .kw { color: var(--accent); }
+    .project-visual .code-art .str { color: #a8d8a8; }
+    .project-visual .code-art .fn { color: #88aaff; }
+    .project-visual .code-art .cm { color: var(--subtle); }
+
+    .project-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(240,165,0,0.06), rgba(255,107,107,0.04));
+    }
+
+    .project-info {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .project-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .project-info h2 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-info p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      color: var(--muted);
+    }
+
+    .tag.hl {
+      border-color: rgba(240,165,0,0.35);
+      color: var(--accent);
+      background: rgba(240,165,0,0.06);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .link-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent);
+      color: #07070f;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+
+    .link-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    .link-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.65rem 1.2rem;
+      border-radius: 5px;
+      transition: all 0.25s;
+    }
+
+    .link-ghost:hover { border-color: var(--muted); color: var(--text); transform: translateY(-2px); }
+
+    /* GRID PROJECTS */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      border-color: rgba(240,165,0,0.3);
+      transform: translateY(-5px);
+    }
+
+    .card-visual {
+      background: var(--bg3);
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-visual .icon-art {
+      font-size: 5rem;
+      opacity: 0.18;
+      user-select: none;
+    }
+
+    .card-visual-label {
+      position: absolute;
+      bottom: 1rem; left: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      background: rgba(240,165,0,0.1);
+      border: 1px solid rgba(240,165,0,0.2);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+    }
+
+    .card-body {
+      padding: 1.8rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-body h3 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+
+    .card-body p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+      flex: 1;
+    }
+
+    .card-body ul {
+      list-style: none;
+      margin-bottom: 1.4rem;
+    }
+
+    .card-body ul li {
+      color: var(--muted);
+      font-size: 0.83rem;
+      padding: 0.3rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .card-body ul li::before {
+      content: '›';
+      position: absolute; left: 0;
+      color: var(--accent);
+    }
+
+    /* INTERNSHIP */
+    .internship {
+      padding: 3rem 4rem 5rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+    }
+
+    .internship-inner { max-width: 1100px; margin: 0 auto; }
+
+    .intern-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      max-width: 700px;
+      margin-top: 2rem;
+      transition: border-color 0.3s;
+    }
+
+    .intern-card:hover { border-color: rgba(240,165,0,0.3); }
+
+    .intern-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      background: rgba(240,165,0,0.1);
+      border: 1px solid rgba(240,165,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .intern-body h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .intern-body .duration {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .intern-body p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--subtle);
+      font-family: var(--font-mono);
+    }
+
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .page-header { padding: 7rem 1.5rem 3rem; }
+      .projects-section { padding: 2rem 1.5rem 4rem; }
+      .project-featured { grid-template-columns: 1fr; }
+      .project-visual { min-height: 200px; border-right: none; border-bottom: 1px solid var(--border); }
+      .internship { padding: 3rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">BR<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/project" class="active">Projects</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p class="section-label">// portfolio</p>
+      <h1>Things I've Built</h1>
+      <p>A selection of projects ranging from AI-powered detection systems to full-stack web platforms and automation tools.</p>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="projects-section">
+    <div class="projects-inner">
+
+      <!-- FEATURED: ServiSeek -->
+      <div class="project-featured reveal">
+        <div class="project-visual">
+          <div class="code-art">
+            <div><span class="cm"># ServiSeek REST API</span></div>
+            <div><span class="kw">from</span> rest_framework <span class="kw">import</span> serializers</div>
+            <div>&nbsp;</div>
+            <div><span class="kw">class</span> <span class="fn">ServiceSerializer</span>(ModelSerializer):</div>
+            <div>&nbsp; &nbsp; <span class="kw">class</span> <span class="fn">Meta</span>:</div>
+            <div>&nbsp; &nbsp; &nbsp; &nbsp; model = Service</div>
+            <div>&nbsp; &nbsp; &nbsp; &nbsp; fields = <span class="str">'__all__'</span></div>
+            <div>&nbsp;</div>
+            <div><span class="kw">class</span> <span class="fn">BookingView</span>(APIView):</div>
+            <div>&nbsp; &nbsp; <span class="kw">def</span> <span class="fn">post</span>(self, request):</div>
+            <div>&nbsp; &nbsp; &nbsp; &nbsp; serializer = <span class="fn">BookingSerializer</span>(</div>
+            <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data=request.data)</div>
+            <div>&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw">if</span> serializer.is_valid():</div>
+            <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; serializer.<span class="fn">save</span>()</div>
+            <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw">return</span> Response(<span class="str">'201'</span>)</div>
+          </div>
+          <div class="project-visual-overlay"></div>
+        </div>
+        <div class="project-info">
+          <p class="project-num">01 — Featured</p>
+          <h2>ServiSeek — Local Service Platform</h2>
+          <p>A full-stack web application connecting local service providers with customers through a responsive, mobile-friendly interface. Includes real-time search, category filtering, and a contact/booking form.</p>
+          <div class="project-tags">
+            <span class="tag hl">React.js</span>
+            <span class="tag hl">Django</span>
+            <span class="tag hl">MySQL</span>
+            <span class="tag">REST API</span>
+            <span class="tag">Bootstrap</span>
+            <span class="tag">Git</span>
+          </div>
+          <div class="project-links">
+            <a href="https://local-servi-seek.vercel.app/" target="_blank" class="link-primary">Live Demo ↗</a>
+            <a href="https://github.com/bharath123-R/local-servi-seek" target="_blank" class="link-ghost">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID PROJECTS -->
+      <div class="project-grid">
+
+        <!-- Object Detection -->
+        <div class="project-card reveal">
+          <div class="card-visual">
+            <div class="icon-art">🎯</div>
+            <div class="card-visual-label">AI · Computer Vision</div>
+          </div>
+          <div class="card-body">
+            <p class="project-num" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);margin-bottom:.6rem;">02</p>
+            <h3>Real-Time Object Detection &amp; Voice Assistant</h3>
+            <p>An AI-powered real-time detection system using YOLOv8 and MATLAB achieving 30+ FPS with live webcam streaming and text-to-speech feedback for accessibility.</p>
+            <ul>
+              <li>30+ FPS low-latency video processing</li>
+              <li>Multi-object recognition with improved accuracy</li>
+              <li>TTS audio feedback for visually impaired users</li>
+              <li>MATLAB Deep Learning Toolbox integration</li>
+            </ul>
+            <div class="project-tags">
+              <span class="tag hl">Python</span>
+              <span class="tag hl">YOLOv8</span>
+              <span class="tag">MATLAB</span>
+              <span class="tag">Deep Learning</span>
+              <span class="tag">TTS</span>
+            </div>
+            <div class="project-links" style="margin-top:auto">
+              <a href="https://github.com/bharath123-R/Real-Time_Data_Augmentation_for_Object_Detection.git" target="_blank" class="link-primary">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- WhatsApp Automation -->
+        <div class="project-card reveal">
+          <div class="card-visual">
+            <div class="icon-art">⚡</div>
+            <div class="card-visual-label">Automation · Python</div>
+          </div>
+          <div class="card-body">
+            <p class="project-num" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);margin-bottom:.6rem;">03</p>
+            <h3>WhatsApp Automation Tool</h3>
+            <p>A Python-based automation solution that handles WhatsApp message &amp; media delivery at scale, with Excel-based contact management and robust error handling.</p>
+            <ul>
+              <li>Automated bulk message &amp; media delivery</li>
+              <li>Excel contact list management via openpyxl</li>
+              <li>Real-time debugging &amp; error recovery</li>
+              <li>Significantly reduced manual effort</li>
+            </ul>
+            <div class="project-tags">
+              <span class="tag hl">Python</span>
+              <span class="tag hl">Selenium</span>
+              <span class="tag">openpyxl</span>
+              <span class="tag">WebDriver</span>
+            </div>
+            <div class="project-links" style="margin-top:auto">
+              <a href="https://github.com/bharath123-R" target="_blank" class="link-ghost">GitHub →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERNSHIP -->
+  <div class="internship">
+    <div class="internship-inner">
+      <p class="section-label reveal">// experience</p>
+      <h2 class="section-title reveal" style="font-family:var(--font-head);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;letter-spacing:-0.03em;">Internship</h2>
+      <div class="intern-card reveal">
+        <div class="intern-icon">🖥️</div>
+        <div class="intern-body">
+          <h3>Computer Hardware Training — KPM Computers</h3>
+          <p class="duration">Duration: 1 Month</p>
+          <p>Gained practical skills in desktop assembly, hardware diagnostics, and system maintenance. Performed software installation, driver setup, and troubleshooting of computer systems in a live workshop environment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Designed &amp; built by <a href="/">Bharath R</a> · <a href="mailto:bharathr1130@gmail.com">bharathr1130@gmail.com</a> · +91 6374985844</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
