@@ -20,19 +20,21 @@ def project():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        message = request.form['message']
 
-        contact_add(name, email, message)
+        try:
+            name = request.form['name']
+            email = request.form['email']
+            message = request.form['message']
 
-        msg = Message(
-            subject='New Portfolio Contact',
-            sender=app.config['MAIL_USERNAME'],
-            recipients=['bharathr1130@gmail.com']
-        )
+            contact_add(name, email, message)
 
-        msg.body = f"""
+            msg = Message(
+                subject='New Portfolio Contact',
+                sender=app.config['MAIL_USERNAME'],
+                recipients=['bharathr1130@gmail.com']
+            )
+
+            msg.body = f"""
 New Contact Message
 
 Name: {name}
@@ -42,9 +44,12 @@ Message:
 {message}
 """
 
-        # mail.send(msg)
+            mail.send(msg)
 
-        return redirect(url_for('index'))
+            return redirect(url_for('index'))
+
+        except Exception as e:
+            return f"ERROR: {str(e)}"
 
     return render_template('contact.html')
 
