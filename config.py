@@ -1,7 +1,7 @@
 class Config:
     MYSQL_HOST = 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com'
     MYSQL_USER = 'cBCGUWoWg6za7NH.root'
-    MYSQL_PASSWORD = 'C4PXXn0QrU2x43KQ'
+    MYSQL_PASSWORD = 'L57SW427B0RD4zuf'
     MYSQL_DB = 'portfolio_db'
     MYSQL_PORT = 4000
 
