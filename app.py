@@ -42,7 +42,7 @@ Message:
 {message}
 """
 
-        mail.send(msg)
+        # mail.send(msg)
 
         return redirect(url_for('index'))
 
