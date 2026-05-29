@@ -1,13 +1,11 @@
 from config import Config
 from flask import Flask, render_template, request, redirect, url_for
-from models import contact_add, init_db
+from models import contact_add
 from flask_mail import Mail, Message
-
-
+import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
-init_db(app)
 
 mail = Mail(app)
 
@@ -25,24 +23,32 @@ def contact():
         name = request.form['name']
         email = request.form['email']
         message = request.form['message']
+
         contact_add(name, email, message)
+
         msg = Message(
-            subject = 'New Portfolio Contact',
-            sender = app.config['MAIL_USERNAME'],
+            subject='New Portfolio Contact',
+            sender=app.config['MAIL_USERNAME'],
             recipients=['bharathr1130@gmail.com']
         )
+
         msg.body = f"""
-        New Contact Message
-        Name: {name}
-        Email: {email}
-        
-        Message: {message}
-        """
+New Contact Message
+
+Name: {name}
+Email: {email}
+
+Message:
+{message}
+"""
+
         mail.send(msg)
+
         return redirect(url_for('index'))
+
     return render_template('contact.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
